@@ -71,7 +71,7 @@ const ProdutosProvider = ({ children }) => {
 
   const deleteProduto = async (id) => {
     alert(`Remove Produto id: ${id}`);
-    const {data} = await axiosClient.delete(`${resourceUrl}${id}`);
+    const {data} = await axiosClient.delete(`${resourceUrl}/${id}`);
     const {message} = data;
     console.log({message});
     loadProdutos()
