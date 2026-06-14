@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useContext, useEffect } from "react"
-import { axiosClient, BASE_URL } from "../utils/axios-client";
+import { axiosClient, BASE_URL, SERVER_URL } from "../utils/axios-client";
 import md5 from "crypto-js/md5";
 import { manipulateLocalStorage, SECRET } from "../utils/encrypt-storage";
 
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const auth = async (credentials) => {
-        const csrfUrl = import.meta.env.VITE_API_HOST+`/sanctum/csrf-cookie`
+        const csrfUrl = SERVER_URL+`/sanctum/csrf-cookie`
         console.log({csrfUrl})
         await axiosClient.get(csrfUrl)
         const response = await axiosClient.post("/login", credentials);

@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const BASE_URL =  'https://deploy-laravel-e2gegpdfa8a6a7ck.centralus-01.azurewebsites.net/api/v1/'
+export const SERVER_URL = 'https://deploy-laravel-e2gegpdfa8a6a7ck.centralus-01.azurewebsites.net'
+export const BASE_URL =  SERVER_URL+'/api/v1/'
 console.log({BASE_URL});
 
 const axiosClient = axios.create({
