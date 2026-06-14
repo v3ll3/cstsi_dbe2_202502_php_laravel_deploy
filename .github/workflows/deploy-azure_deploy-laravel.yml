@@ -33,6 +33,9 @@ jobs:
         if: steps.check_files.outputs.files_exists == 'true'
         run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
 
+      #ADICIONAR O PASSO DE ZIP NO BUILD, ANTES DO UPLOAD
+      - name: Zip artifact for deployment
+        run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -52,13 +55,17 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: php-app
-      
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_ECCD74EF9AF246C4A7C9119D18FC7FE5 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_ED4336CD1ADB4F1C92CF807830C5BCCE }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B6E8C5781FFA482DA0E63D61AF806286 }}
+
+      #ADICIONAR O PASSO DE UNZIP NO DEPLOY, APOS O DOWNLOAD
+      - name: unzip artifact for deployment
+        run: unzip release.zip
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
@@ -67,4 +74,3 @@ jobs:
           app-name: 'deploy-laravel'
           slot-name: 'Production'
           package: .
-          
