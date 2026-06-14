@@ -33,6 +33,19 @@ jobs:
         if: steps.check_files.outputs.files_exists == 'true'
         run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
 
+      - name: Check if package.json exists
+        id: check_npm_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: 'package.json'
+
+      - name: Run npm install if package.json exists
+        if: steps.check_npm_files.outputs.files_exists == 'true'
+        run: npm i
+
+      - name: Run vite build
+        run: npm run build
+
       #ADICIONAR O PASSO DE ZIP NO BUILD, ANTES DO UPLOAD
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
@@ -41,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: php-app
-          path: .
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
