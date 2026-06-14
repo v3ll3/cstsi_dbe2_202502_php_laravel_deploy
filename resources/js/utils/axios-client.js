@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const BASE_URL =  import.meta.env.VITE_API_URL
+export const BASE_URL =  'https://deploy-laravel-e2gegpdfa8a6a7ck.centralus-01.azurewebsites.net/api/v1/'
 console.log({BASE_URL});
 
 const axiosClient = axios.create({
