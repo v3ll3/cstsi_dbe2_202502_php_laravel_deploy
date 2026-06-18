@@ -47,8 +47,8 @@ jobs:
 
       - name: Run vite build
         env:
-          VITE_API_URL: ${{ vars.VITE_API_HOST }}
-          VITE_APP_ENV: ${{ vars.VITE_API_URL }}
+          VITE_API_HOST: ${{ vars.VITE_API_HOST }}
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
         run: npm run build
 
       #ADICIONAR O PASSO DE ZIP NO BUILD, ANTES DO UPLOAD

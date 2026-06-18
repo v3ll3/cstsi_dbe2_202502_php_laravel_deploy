@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const SERVER_URL = import.meta.env.VITE_API_HOST
 export const BASE_URL =  import.meta.env.VITE_API_URL
-console.log({BASE_URL});
+console.log({BASE_URL,SERVER_URL});
 
 const axiosClient = axios.create({
     baseURL: BASE_URL,
